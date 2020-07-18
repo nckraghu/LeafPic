@@ -12,7 +12,6 @@ import org.horaapps.leafpic.data.sort.SortingOrder;
 import org.horaapps.leafpic.util.StringUtils;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -70,7 +69,7 @@ public class Album implements CursorHandler, Parcelable {
 	}
 
 	@Override
-	public Album handle(Cursor cur) throws SQLException {
+	public Album handle(Cursor cur) {
 		return new Album(cur);
 	}
 
@@ -211,11 +210,11 @@ public class Album implements CursorHandler, Parcelable {
 		settings.coverPath = null;
 	}
 
-	public void setDefaultSortingMode(Context context, SortingMode column) {
+	public void setSortingMode(SortingMode column) {
 		settings.sortingMode = column.getValue();
 	}
 
-	public void setDefaultSortingAscending(Context context, SortingOrder sortingOrder) {
+	public void setSortingOrder(SortingOrder sortingOrder) {
 		settings.sortingOrder = sortingOrder.getValue();
 	}
 
@@ -362,6 +361,7 @@ public class Album implements CursorHandler, Parcelable {
 	}
 
 	public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
+
 		@Override
 		public Album createFromParcel(Parcel source) {
 			return new Album(source);
